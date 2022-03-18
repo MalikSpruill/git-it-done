@@ -9,7 +9,7 @@ let getUserRepos = function(user) {
 
     // request to url
     fetch(apiUrl)
-    .then(response => response.ok ? response.json().then(data => displayRepos(data,user)) : alert("Error: GitHub User Not Found"))
+    .then(response => response.ok ? response.json().then(data => displayRepos(data,user)) : document.location.replace("./index.html"))
     .catch( error => alert("Unable to connect to GitHub: " + error),)
 }
 
@@ -29,8 +29,9 @@ let displayRepos = function(repos, searchTerm) {
         let repoName = `${repos[i].owner.login}/${repos[i].name}`;
 
         // create a container for each repo
-        let repoEl = document.createElement("div");
+        let repoEl = document.createElement("a");
         repoEl.classList = "list-item flex-row justify-space-between align-center";
+        repoEl.setAttribute("href", `./single-repo.html?repo=${repoName}`);
 
         //holds repository name
         let titleEl = document.createElement("span");
